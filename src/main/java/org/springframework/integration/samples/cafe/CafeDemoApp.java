@@ -24,6 +24,9 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.integration.annotation.Gateway;
 import org.springframework.integration.annotation.IntegrationComponentScan;
 import org.springframework.integration.annotation.MessagingGateway;
+import org.springframework.integration.dsl.IntegrationFlow;
+import org.springframework.integration.dsl.IntegrationFlows;
+import org.springframework.integration.dsl.channel.MessageChannels;
 import org.springframework.integration.samples.cafe.business.DrinkType;
 import org.springframework.integration.samples.cafe.business.Order;
 import org.springframework.integration.scheduling.PollerMetadata;
@@ -82,4 +85,13 @@ public class CafeDemoApp {
         pollerMetadata.setTrigger(new PeriodicTrigger(10));
         return pollerMetadata;
     }
+    
+    @Bean
+    public IntegrationFlow orderFlow() {
+        return
+        IntegrationFlows.from("inputChannel")
+                .channel(MessageChannels.queue("outputChannel"))
+                .get();
+    }
+
 }
