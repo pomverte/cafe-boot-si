@@ -18,7 +18,11 @@
 
   <!-- The router sends different drink orders on different paths -->
   <int:channel id="drinks" />
-  <int:router input-channel="drinks" expression="payload.iced ? 'coldDrinks' : 'hotDrinks'" />
+  <!--int:router input-channel="drinks" expression="payload.iced ? 'coldDrinks' : 'hotDrinks'" /-->
+  <int:router input-channel="drinks" expression="payload.iced ? 'coldDrinks' : 'hotDrinks'">
+  	<int:mapping value="coldDrinks" channel="coldDrinks" />
+  	<int:mapping value="hotDrinks" channel="hotDrinks" />
+  </int:router>
 
   <!-- individual order items are processed by the barista -->
   <int:channel id="coldDrinks">
