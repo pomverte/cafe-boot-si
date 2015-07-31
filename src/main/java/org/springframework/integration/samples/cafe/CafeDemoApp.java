@@ -19,6 +19,10 @@ package org.springframework.integration.samples.cafe;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.ImportResource;
+import org.springframework.integration.samples.cafe.business.DrinkType;
+import org.springframework.integration.samples.cafe.business.Order;
+import org.springframework.integration.samples.cafe.gateway.Cafe;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,10 +36,19 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @SpringBootApplication
+@ImportResource("classpath:spring-integration/cafeDemo.xml")
 public class CafeDemoApp {
 
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(CafeDemoApp.class, args);
+        Cafe cafe = context.getBean("cafe", Cafe.class);
+        for (int i = 1; i <= 100; i++) {
+            Order order = new Order(i);
+            order.addItem(DrinkType.LATTE, 2, false);
+            order.addItem(DrinkType.MOCHA, 3, true);
+            cafe.placeOrder(order);
+        }
+        context.close();
     }
 
 }
