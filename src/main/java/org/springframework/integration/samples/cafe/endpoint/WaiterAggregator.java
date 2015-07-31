@@ -20,17 +20,17 @@ import java.util.List;
 
 import org.springframework.integration.annotation.Aggregator;
 import org.springframework.integration.annotation.CorrelationStrategy;
-import org.springframework.integration.annotation.MessageEndpoint;
 import org.springframework.integration.samples.cafe.business.Delivery;
 import org.springframework.integration.samples.cafe.business.Drink;
+import org.springframework.stereotype.Component;
 
 /**
  * @author Marius Bogoevici
  */
-@MessageEndpoint
+@Component
 public class WaiterAggregator {
 
-	@Aggregator(inputChannel = "preparedDrinks", outputChannel = "deliveries")
+	@Aggregator
 	public Delivery prepareDelivery(List<Drink> drinks) {
 		return new Delivery(drinks);
 	}
