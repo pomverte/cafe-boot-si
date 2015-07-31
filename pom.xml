@@ -9,8 +9,8 @@
     <relativePath /> <!-- lookup parent from repository -->
   </parent>
 
-  <groupId>fr.cgi.tps.atp</groupId>
-  <artifactId>spring-integration-test</artifactId>
+  <groupId>org.springframework.integration.samples</groupId>
+  <artifactId>cafe-boot-si</artifactId>
   <version>0.0.1-SNAPSHOT</version>
 
   <properties>
